@@ -10,6 +10,6 @@ import java.util.Map;
 @Data
 @ConfigurationProperties(prefix = "weixin.offiaccount")
 public class WeiXinOfficeAccountConfProperties extends WeiXinOfficeAccountProperties {
-    private Boolean enable;
+    private Boolean enabled;
     private Map<String, WeiXinOfficeAccountInstanceProperties> instance;
 }

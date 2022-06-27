@@ -19,7 +19,7 @@ import org.springframework.core.env.Environment;
 
 import java.util.Map;
 
-@Configuration
+@Configuration(value = "com.moensun.spring.boot.weixin.offiaccount.WeiXinOfficeAccountAutoConfiguration")
 @ConditionalOnProperty(prefix = "weixin.offiaccount", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(value = {WeiXinOfficeAccountConfProperties.class})
 public class WeiXinOfficeAccountAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
