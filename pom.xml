@@ -11,6 +11,7 @@
     <name>MS:WeiXin:Starters</name>
     <modules>
         <module>moensun-weixin-offiaccount-spring-boot-starter</module>
+        <module>moensun-weixin-miniprogram-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -54,6 +55,11 @@
             <dependency>
                 <groupId>com.moensun.spring.boot</groupId>
                 <artifactId>moensun-weixin-offiaccount-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moensun.spring.boot</groupId>
+                <artifactId>moensun-weixin-miniprogram-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
