@@ -1,5 +1,6 @@
 package com.moensun.spring.boot.weixin.miniprogram;
 
+import com.moensun.weixin.commons.WeiXinCache;
 import com.moensun.weixin.commons.WeiXinConfig;
 import com.moensun.weixin.miniprogram.MiniProgram;
 import org.apache.commons.collections.MapUtils;
@@ -18,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import java.util.Map;
-
 @Configuration(value = "com.moensun.spring.boot.weixin.miniprogram.WeiXinMiniProgramAutoConfiguration")
 @ConditionalOnProperty(prefix = "weixin.miniprogram", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(value = {WeiXinMiniProgramConfProperties.class})
@@ -29,12 +29,13 @@ public class WeiXinMiniProgramAutoConfiguration implements EnvironmentAware, Bea
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
+        WeiXinCache weiXinCache = beanFactory.getBean(WeiXinCache.class);
         Map<String, WeiXinMiniProgramInstanceProperties> instancePropertiesMap = confProperties.getInstance();
         if (MapUtils.isEmpty(instancePropertiesMap)) {
             WeiXinConfig weiXinConfig = new WeiXinConfig();
             weiXinConfig.setAppId(confProperties.getAppId());
             weiXinConfig.setSecret(confProperties.getSecret());
-            weiXinConfig.setWeiXinCache(confProperties.getCache());
+            weiXinConfig.setWeiXinCache(weiXinCache);
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
             registerBean(beanFactory, argumentValues, MiniProgram.class.getName());
@@ -43,7 +44,7 @@ public class WeiXinMiniProgramAutoConfiguration implements EnvironmentAware, Bea
                 WeiXinConfig weiXinConfig = new WeiXinConfig();
                 weiXinConfig.setAppId(v.getAppId());
                 weiXinConfig.setSecret(v.getSecret());
-                weiXinConfig.setWeiXinCache(v.getCache());
+                weiXinConfig.setWeiXinCache(weiXinCache);
                 String baneName = StringUtils.isBlank(v.getName()) ? k : v.getName();
                 ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
                 argumentValues.addIndexedArgumentValue(0, weiXinConfig);

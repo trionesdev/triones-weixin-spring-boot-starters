@@ -7,5 +7,4 @@ import lombok.Data;
 public class WeiXinOfficeAccountProperties {
     private String appId;
     private String secret;
-    private WeiXinCache cache;
 }
