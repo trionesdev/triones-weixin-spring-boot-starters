@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.moensun.spring.boot.weixin.offiaccount.WeiXinOfficeAccountAutoConfiguration
+com.moensun.weixin.spring.boot.offiaccount.WeiXinOfficeAccountAutoConfiguration

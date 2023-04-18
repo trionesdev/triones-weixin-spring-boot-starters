@@ -1,4 +1,4 @@
-package com.moensun.spring.boot.weixin.offiaccount;
+package com.moensun.weixin.spring.boot.offiaccount;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

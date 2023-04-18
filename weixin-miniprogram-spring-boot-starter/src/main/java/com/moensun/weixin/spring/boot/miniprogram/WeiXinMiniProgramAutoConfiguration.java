@@ -1,8 +1,9 @@
-package com.moensun.spring.boot.weixin.offiaccount;
+package com.moensun.weixin.spring.boot.miniprogram;
 
 import com.moensun.weixin.commons.WeiXinCache;
 import com.moensun.weixin.commons.WeiXinConfig;
-import com.moensun.weixin.offiaccount.OfficeAccount;
+import com.moensun.weixin.miniprogram.MiniProgram;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
@@ -22,10 +23,13 @@ import org.springframework.core.env.Environment;
 
 import java.util.Map;
 
-@Configuration(value = "com.moensun.spring.boot.weixin.offiaccount.WeiXinOfficeAccountAutoConfiguration")
-@ConditionalOnProperty(prefix = "weixin.offiaccount", value = "enabled", havingValue = "true")
-@EnableConfigurationProperties(value = {WeiXinOfficeAccountConfProperties.class})
-public class WeiXinOfficeAccountAutoConfiguration {
+@RequiredArgsConstructor
+@Configuration(value = "com.moensun.spring.boot.weixin.miniprogram.WeiXinMiniProgramAutoConfiguration")
+@ConditionalOnProperty(prefix = "weixin.miniprogram", value = "enabled", havingValue = "true")
+@EnableConfigurationProperties(value = {WeiXinMiniProgramConfProperties.class})
+public class WeiXinMiniProgramAutoConfiguration {
+
+    private final WeiXinMiniProgramConfProperties confProperties;
 
 
     @Configuration
@@ -38,7 +42,8 @@ public class WeiXinOfficeAccountAutoConfiguration {
     }
 
     public static class AutoConfiguredRegistrar implements EnvironmentAware, BeanFactoryPostProcessor {
-        private WeiXinOfficeAccountConfProperties confProperties;
+
+        private WeiXinMiniProgramConfProperties confProperties;
 
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
@@ -49,7 +54,7 @@ public class WeiXinOfficeAccountAutoConfiguration {
             } else {
                 weiXinCache = null;
             }
-            Map<String, WeiXinOfficeAccountInstanceProperties> instancePropertiesMap = confProperties.getInstance();
+            Map<String, WeiXinMiniProgramInstanceProperties> instancePropertiesMap = confProperties.getInstance();
             if (MapUtils.isEmpty(instancePropertiesMap)) {
                 WeiXinConfig weiXinConfig = new WeiXinConfig();
                 weiXinConfig.setAppId(confProperties.getAppId());
@@ -57,7 +62,7 @@ public class WeiXinOfficeAccountAutoConfiguration {
                 weiXinConfig.setWeiXinCache(weiXinCache);
                 ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
                 argumentValues.addIndexedArgumentValue(0, weiXinConfig);
-                registerBean(beanFactory, argumentValues, OfficeAccount.class.getName());
+                registerBean(beanFactory, argumentValues, MiniProgram.class.getName());
             } else {
                 instancePropertiesMap.forEach((k, v) -> {
                     WeiXinConfig weiXinConfig = new WeiXinConfig();
@@ -74,13 +79,13 @@ public class WeiXinOfficeAccountAutoConfiguration {
 
         @Override
         public void setEnvironment(Environment environment) {
-            this.confProperties = Binder.get(environment).bind("weixin.offiaccount", WeiXinOfficeAccountConfProperties.class).get();
+            this.confProperties = Binder.get(environment).bind("weixin.miniprogram", WeiXinMiniProgramConfProperties.class).get();
         }
 
         private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
             GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-            beanDefinition.setBeanClass(OfficeAccount.class);
-            beanDefinition.setBeanClassName(OfficeAccount.class.getName());
+            beanDefinition.setBeanClass(MiniProgram.class);
+            beanDefinition.setBeanClassName(MiniProgram.class.getName());
             beanDefinition.setConstructorArgumentValues(argumentValues);
             beanFactory.registerBeanDefinition(beanName, beanDefinition);
         }

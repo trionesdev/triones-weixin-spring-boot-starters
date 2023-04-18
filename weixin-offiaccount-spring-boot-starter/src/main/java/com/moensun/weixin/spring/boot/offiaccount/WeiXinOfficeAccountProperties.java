@@ -1,4 +1,4 @@
-package com.moensun.spring.boot.weixin.offiaccount;
+package com.moensun.weixin.spring.boot.offiaccount;
 
 import com.moensun.weixin.commons.WeiXinCache;
 import lombok.Data;
