@@ -4,7 +4,7 @@ import com.moensun.weixin.commons.WeiXinCache;
 import com.moensun.weixin.commons.WeiXinConfig;
 import com.moensun.weixin.miniprogram.MiniProgram;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
