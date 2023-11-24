@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.moensun.weixin.spring.boot.miniprogram.WeiXinMiniProgramAutoConfiguration
+com.moensun.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration
