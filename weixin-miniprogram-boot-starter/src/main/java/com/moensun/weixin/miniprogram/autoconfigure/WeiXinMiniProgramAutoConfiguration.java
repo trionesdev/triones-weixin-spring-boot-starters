@@ -23,8 +23,8 @@ import org.springframework.core.env.Environment;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@Configuration(value = "com.moensun.spring.boot.weixin.miniprogram.WeiXinMiniProgramAutoConfiguration")
-@ConditionalOnProperty(prefix = "weixin.miniprogram", value = "enabled", havingValue = "true")
+@Configuration(value = "com.moensun.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration")
+@ConditionalOnProperty(prefix = "triones.weixin.miniprogram", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(value = {WeiXinMiniProgramProperties.class})
 public class WeiXinMiniProgramAutoConfiguration {
 

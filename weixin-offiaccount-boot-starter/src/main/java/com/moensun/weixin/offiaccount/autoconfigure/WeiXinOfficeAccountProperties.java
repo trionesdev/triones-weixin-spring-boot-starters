@@ -1,11 +1,11 @@
-package com.moensun.weixin.miniprogram.autoconfigure;
+package com.moensun.weixin.offiaccount.autoconfigure;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "weixin.miniprogram")
-public class WeiXinMiniProgramProperties {
+@ConfigurationProperties(prefix = "triones.weixin.offiaccount")
+public class WeiXinOfficeAccountProperties {
     private Boolean enabled;
     private String appId;
     private String secret;

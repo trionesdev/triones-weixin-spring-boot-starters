@@ -21,8 +21,8 @@ import org.springframework.core.env.Environment;
 
 import java.util.Objects;
 
-@Configuration(value = "com.moensun.spring.boot.weixin.offiaccount.WeiXinOfficeAccountAutoConfiguration")
-@ConditionalOnProperty(prefix = "weixin.offiaccount", value = "enabled", havingValue = "true")
+@Configuration(value = "com.moensun.weixin.offiaccount.autoconfigure.WeiXinOfficeAccountAutoConfiguration")
+@ConditionalOnProperty(prefix = "triones.weixin.offiaccount", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(value = {WeiXinOfficeAccountProperties.class})
 public class WeiXinOfficeAccountAutoConfiguration {
 
