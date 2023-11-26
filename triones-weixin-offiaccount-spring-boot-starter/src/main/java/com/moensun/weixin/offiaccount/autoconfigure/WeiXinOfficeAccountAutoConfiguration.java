@@ -68,7 +68,7 @@ public class WeiXinOfficeAccountAutoConfiguration {
 
         @Override
         public void setEnvironment(Environment environment) {
-            this.confProperties = Binder.get(environment).bind("weixin.offiaccount", WeiXinOfficeAccountProperties.class).get();
+            this.confProperties = Binder.get(environment).bind("triones.weixin.offiaccount", WeiXinOfficeAccountProperties.class).get();
         }
 
         private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

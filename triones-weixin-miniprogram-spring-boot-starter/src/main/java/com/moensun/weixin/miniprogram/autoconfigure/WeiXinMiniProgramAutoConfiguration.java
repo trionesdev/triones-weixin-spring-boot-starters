@@ -74,7 +74,7 @@ public class WeiXinMiniProgramAutoConfiguration {
 
         @Override
         public void setEnvironment(Environment environment) {
-            this.confProperties = Binder.get(environment).bind("weixin.miniprogram", WeiXinMiniProgramProperties.class).get();
+            this.confProperties = Binder.get(environment).bind("triones.weixin.miniprogram", WeiXinMiniProgramProperties.class).get();
         }
 
         private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
