@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.moensun.weixin</groupId>
-    <artifactId>triones-weixin-boot-starters</artifactId>
+    <artifactId>triones-weixin-spring-boot-starters</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>MS:WeiXin:Starters</name>
     <modules>
-        <module>weixin-offiaccount-boot-starter</module>
-        <module>weixin-miniprogram-boot-starter</module>
+        <module>triones-weixin-offiaccount-spring-boot-starter</module>
+        <module>triones-weixin-miniprogram-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -78,12 +78,12 @@
 
             <dependency>
                 <groupId>com.moensun.weixin</groupId>
-                <artifactId>weixin-offiaccount-spring-boot-starter</artifactId>
+                <artifactId>triones-weixin-offiaccount-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.moensun.weixin</groupId>
-                <artifactId>weixin-miniprogram-spring-boot-starter</artifactId>
+                <artifactId>triones-weixin-miniprogram-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
