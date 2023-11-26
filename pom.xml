@@ -8,7 +8,7 @@
     <artifactId>triones-weixin-spring-boot-starters</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>MS:WeiXin:Starters</name>
+    <name>Triones:WeiXin:Starters</name>
     <modules>
         <module>triones-weixin-offiaccount-spring-boot-starter</module>
         <module>triones-weixin-miniprogram-spring-boot-starter</module>
