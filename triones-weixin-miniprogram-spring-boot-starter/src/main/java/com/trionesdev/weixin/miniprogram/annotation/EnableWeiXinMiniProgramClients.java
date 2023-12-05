@@ -1,4 +1,4 @@
-package com.moensun.weixin.offiaccount.annotation;
+package com.trionesdev.weixin.miniprogram.annotation;
 
 import org.springframework.context.annotation.Import;
 
@@ -7,8 +7,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(value = {WeiXinOfficeAccountClientRegister.class})
-public @interface EnableWeiXinOfficeAccountClients {
+@Import(value = {WeiXinMiniProgramClientRegister.class})
+public @interface EnableWeiXinMiniProgramClients {
     String[] value() default {};
 
     String[] basePackages() default {};

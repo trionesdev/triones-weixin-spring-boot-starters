@@ -1,9 +1,9 @@
-package com.moensun.weixin.miniprogram.annotation;
+package com.trionesdev.weixin.offiaccount.annotation;
 
-import com.moensun.weixin.commons.WeiXinCache;
-import com.moensun.weixin.commons.WeiXinConfig;
-import com.moensun.weixin.commons.ex.WeiXinException;
-import com.moensun.weixin.miniprogram.MiniProgram;
+import com.trionesdev.weixin.commons.WeiXinCache;
+import com.trionesdev.weixin.commons.WeiXinConfig;
+import com.trionesdev.weixin.commons.ex.WeiXinException;
+import com.trionesdev.weixin.offiaccount.OfficeAccount;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Objects;
 
-public class WeiXinMiniProgramClientFactoryBean implements FactoryBean<Object>, InitializingBean,
+public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>, InitializingBean,
         ApplicationContextAware, BeanFactoryAware {
     private String appId;
     private String secret;
@@ -75,14 +75,14 @@ public class WeiXinMiniProgramClientFactoryBean implements FactoryBean<Object>, 
         WeiXinCache weiXinCache = null;
         if (Objects.nonNull(cache)) {
             if (WeiXinCache.class.isAssignableFrom(cache)) {
-                if (listableBeanFactory.getBeanNamesForType(cache).length>0){
+                if (listableBeanFactory.getBeanNamesForType(cache).length > 0) {
                     weiXinCache = (WeiXinCache) beanFactory.getBean(cache);
                 }
             } else {
                 throw new WeiXinException("cache class is not implements from  `com.moensun.weixin.commons.class`");
             }
         } else {
-            if (listableBeanFactory.getBeanNamesForType(WeiXinCache.class).length>0){
+            if (listableBeanFactory.getBeanNamesForType(WeiXinCache.class).length > 0) {
                 weiXinCache = beanFactory.getBean(WeiXinCache.class);
             }
         }
@@ -90,11 +90,11 @@ public class WeiXinMiniProgramClientFactoryBean implements FactoryBean<Object>, 
         weiXinConfig.setAppId(appId);
         weiXinConfig.setSecret(secret);
         weiXinConfig.setWeiXinCache(weiXinCache);
-        MiniProgram miniProgram = new MiniProgram(weiXinConfig);
+        OfficeAccount officeAccount = new OfficeAccount(weiXinConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                return method.invoke(miniProgram, args);
+                return method.invoke(officeAccount, args);
             }
         }));
     }

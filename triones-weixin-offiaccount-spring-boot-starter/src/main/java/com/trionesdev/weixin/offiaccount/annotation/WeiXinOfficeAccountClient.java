@@ -1,6 +1,6 @@
-package com.moensun.weixin.miniprogram.annotation;
+package com.trionesdev.weixin.offiaccount.annotation;
 
-import com.moensun.weixin.commons.WeiXinCache;
+import com.trionesdev.weixin.commons.WeiXinCache;
 
 import java.lang.annotation.*;
 
@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface WeiXinMiniProgramClient {
+public @interface WeiXinOfficeAccountClient {
     String appId() default "";
 
     String secret() default "";

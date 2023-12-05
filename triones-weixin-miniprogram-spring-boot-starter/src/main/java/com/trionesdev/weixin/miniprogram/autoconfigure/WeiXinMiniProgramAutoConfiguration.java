@@ -1,9 +1,10 @@
-package com.moensun.weixin.offiaccount.autoconfigure;
+package com.trionesdev.weixin.miniprogram.autoconfigure;
 
-import com.moensun.weixin.commons.WeiXinCache;
-import com.moensun.weixin.commons.WeiXinConfig;
-import com.moensun.weixin.commons.ex.WeiXinException;
-import com.moensun.weixin.offiaccount.OfficeAccount;
+import com.trionesdev.weixin.commons.WeiXinCache;
+import com.trionesdev.weixin.commons.WeiXinConfig;
+import com.trionesdev.weixin.commons.ex.WeiXinException;
+import com.trionesdev.weixin.miniprogram.MiniProgram;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -21,10 +22,13 @@ import org.springframework.core.env.Environment;
 
 import java.util.Objects;
 
-@Configuration(value = "com.moensun.weixin.offiaccount.autoconfigure.WeiXinOfficeAccountAutoConfiguration")
-@ConditionalOnProperty(prefix = "triones.weixin.offiaccount", value = "enabled", havingValue = "true")
-@EnableConfigurationProperties(value = {WeiXinOfficeAccountProperties.class})
-public class WeiXinOfficeAccountAutoConfiguration {
+@RequiredArgsConstructor
+@Configuration(value = "com.moensun.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration")
+@ConditionalOnProperty(prefix = "triones.weixin.miniprogram", value = "enabled", havingValue = "true")
+@EnableConfigurationProperties(value = {WeiXinMiniProgramProperties.class})
+public class WeiXinMiniProgramAutoConfiguration {
+
+    private final WeiXinMiniProgramProperties confProperties;
 
 
     @Configuration
@@ -37,7 +41,8 @@ public class WeiXinOfficeAccountAutoConfiguration {
     }
 
     public static class AutoConfiguredRegistrar implements EnvironmentAware, BeanFactoryPostProcessor {
-        private WeiXinOfficeAccountProperties confProperties;
+
+        private WeiXinMiniProgramProperties confProperties;
 
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
@@ -57,24 +62,25 @@ public class WeiXinOfficeAccountAutoConfiguration {
                     weiXinCache = beanFactory.getBean(WeiXinCache.class);
                 }
             }
+
             WeiXinConfig weiXinConfig = new WeiXinConfig();
             weiXinConfig.setAppId(confProperties.getAppId());
             weiXinConfig.setSecret(confProperties.getSecret());
             weiXinConfig.setWeiXinCache(weiXinCache);
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
-            registerBean(beanFactory, argumentValues, OfficeAccount.class.getName());
+            registerBean(beanFactory, argumentValues, MiniProgram.class.getName());
         }
 
         @Override
         public void setEnvironment(Environment environment) {
-            this.confProperties = Binder.get(environment).bind("triones.weixin.offiaccount", WeiXinOfficeAccountProperties.class).get();
+            this.confProperties = Binder.get(environment).bind("triones.weixin.miniprogram", WeiXinMiniProgramProperties.class).get();
         }
 
         private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
             GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-            beanDefinition.setBeanClass(OfficeAccount.class);
-            beanDefinition.setBeanClassName(OfficeAccount.class.getName());
+            beanDefinition.setBeanClass(MiniProgram.class);
+            beanDefinition.setBeanClassName(MiniProgram.class.getName());
             beanDefinition.setConstructorArgumentValues(argumentValues);
             beanFactory.registerBeanDefinition(beanName, beanDefinition);
         }
