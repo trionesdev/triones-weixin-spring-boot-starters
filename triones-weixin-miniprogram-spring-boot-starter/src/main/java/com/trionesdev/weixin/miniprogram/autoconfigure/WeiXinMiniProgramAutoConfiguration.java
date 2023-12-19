@@ -3,7 +3,7 @@ package com.trionesdev.weixin.miniprogram.autoconfigure;
 import com.trionesdev.weixin.commons.WeiXinCache;
 import com.trionesdev.weixin.commons.WeiXinConfig;
 import com.trionesdev.weixin.commons.ex.WeiXinException;
-import com.trionesdev.weixin.miniprogram.MiniProgram;
+import com.trionesdev.weixin.miniprogram.WeiXinMiniProgram;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -69,7 +69,7 @@ public class WeiXinMiniProgramAutoConfiguration {
             weiXinConfig.setWeiXinCache(weiXinCache);
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
-            registerBean(beanFactory, argumentValues, MiniProgram.class.getName());
+            registerBean(beanFactory, argumentValues, WeiXinMiniProgram.class.getName());
         }
 
         @Override
@@ -79,8 +79,8 @@ public class WeiXinMiniProgramAutoConfiguration {
 
         private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
             GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-            beanDefinition.setBeanClass(MiniProgram.class);
-            beanDefinition.setBeanClassName(MiniProgram.class.getName());
+            beanDefinition.setBeanClass(WeiXinMiniProgram.class);
+            beanDefinition.setBeanClassName(WeiXinMiniProgram.class.getName());
             beanDefinition.setConstructorArgumentValues(argumentValues);
             beanFactory.registerBeanDefinition(beanName, beanDefinition);
         }

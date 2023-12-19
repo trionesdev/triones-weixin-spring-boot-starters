@@ -3,7 +3,7 @@ package com.trionesdev.weixin.offiaccount.autoconfigure;
 import com.trionesdev.weixin.commons.WeiXinCache;
 import com.trionesdev.weixin.commons.WeiXinConfig;
 import com.trionesdev.weixin.commons.ex.WeiXinException;
-import com.trionesdev.weixin.offiaccount.OfficeAccount;
+import com.trionesdev.weixin.offiaccount.WeiXinOfficeAccount;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -63,7 +63,7 @@ public class WeiXinOfficeAccountAutoConfiguration {
             weiXinConfig.setWeiXinCache(weiXinCache);
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
-            registerBean(beanFactory, argumentValues, OfficeAccount.class.getName());
+            registerBean(beanFactory, argumentValues, WeiXinOfficeAccount.class.getName());
         }
 
         @Override
@@ -73,8 +73,8 @@ public class WeiXinOfficeAccountAutoConfiguration {
 
         private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
             GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-            beanDefinition.setBeanClass(OfficeAccount.class);
-            beanDefinition.setBeanClassName(OfficeAccount.class.getName());
+            beanDefinition.setBeanClass(WeiXinOfficeAccount.class);
+            beanDefinition.setBeanClassName(WeiXinOfficeAccount.class.getName());
             beanDefinition.setConstructorArgumentValues(argumentValues);
             beanFactory.registerBeanDefinition(beanName, beanDefinition);
         }

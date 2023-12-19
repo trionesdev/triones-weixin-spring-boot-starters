@@ -3,7 +3,8 @@ package com.trionesdev.weixin.offiaccount.annotation;
 import com.trionesdev.weixin.commons.WeiXinCache;
 import com.trionesdev.weixin.commons.WeiXinConfig;
 import com.trionesdev.weixin.commons.ex.WeiXinException;
-import com.trionesdev.weixin.offiaccount.OfficeAccount;
+import com.trionesdev.weixin.offiaccount.WeiXinOfficeAccount;
+import lombok.Setter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -20,10 +21,14 @@ import java.util.Objects;
 
 public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>, InitializingBean,
         ApplicationContextAware, BeanFactoryAware {
+    @Setter
     private String appId;
+    @Setter
     private String secret;
+    @Setter
     private Class<?> cache;
 
+    @Setter
     private Class<?> type;
     private BeanFactory beanFactory;
 
@@ -54,22 +59,6 @@ public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>
         this.applicationContext = applicationContext;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public void setCache(Class<?> cache) {
-        this.cache = cache;
-    }
-
-    public void setType(Class<?> type) {
-        this.type = type;
-    }
-
     protected <T> T getTarget() {
         DefaultListableBeanFactory listableBeanFactory = (DefaultListableBeanFactory) beanFactory;
         WeiXinCache weiXinCache = null;
@@ -90,7 +79,7 @@ public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>
         weiXinConfig.setAppId(appId);
         weiXinConfig.setSecret(secret);
         weiXinConfig.setWeiXinCache(weiXinCache);
-        OfficeAccount officeAccount = new OfficeAccount(weiXinConfig);
+        WeiXinOfficeAccount officeAccount = new WeiXinOfficeAccount(weiXinConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
