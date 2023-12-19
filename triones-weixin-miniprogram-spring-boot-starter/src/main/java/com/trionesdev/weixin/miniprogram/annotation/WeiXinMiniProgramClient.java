@@ -1,6 +1,7 @@
 package com.trionesdev.weixin.miniprogram.annotation;
 
-import com.trionesdev.weixin.commons.WeiXinCache;
+
+import com.trionesdev.weixin.base.WeiXinCache;
 
 import java.lang.annotation.*;
 

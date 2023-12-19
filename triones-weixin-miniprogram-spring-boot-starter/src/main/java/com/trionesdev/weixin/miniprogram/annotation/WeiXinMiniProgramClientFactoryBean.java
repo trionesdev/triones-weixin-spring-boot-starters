@@ -1,8 +1,9 @@
 package com.trionesdev.weixin.miniprogram.annotation;
 
-import com.trionesdev.weixin.commons.WeiXinCache;
-import com.trionesdev.weixin.commons.WeiXinConfig;
-import com.trionesdev.weixin.commons.ex.WeiXinException;
+
+import com.trionesdev.weixin.base.WeiXinCache;
+import com.trionesdev.weixin.base.WeiXinConfig;
+import com.trionesdev.weixin.base.ex.WeiXinException;
 import com.trionesdev.weixin.miniprogram.WeiXinMiniProgram;
 import lombok.Setter;
 import org.springframework.beans.BeansException;
