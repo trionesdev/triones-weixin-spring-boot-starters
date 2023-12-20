@@ -12,6 +12,7 @@
     <modules>
         <module>triones-weixin-offiaccount-spring-boot-starter</module>
         <module>triones-weixin-miniprogram-spring-boot-starter</module>
+        <module>triones-weixin-web-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -84,6 +85,11 @@
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
                 <artifactId>triones-weixin-miniprogram-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.weixin</groupId>
+                <artifactId>triones-weixin-web-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
