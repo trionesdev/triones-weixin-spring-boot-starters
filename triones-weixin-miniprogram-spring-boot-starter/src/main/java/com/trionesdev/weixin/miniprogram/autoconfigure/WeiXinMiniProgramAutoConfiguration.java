@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -16,7 +17,12 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
@@ -29,45 +35,24 @@ import java.util.Objects;
 @EnableConfigurationProperties(value = {WeiXinMiniProgramProperties.class})
 public class WeiXinMiniProgramAutoConfiguration {
 
-    private final WeiXinMiniProgramProperties confProperties;
-
-
     @Configuration
     @Import(value = {AutoConfiguredRegistrar.class})
-    public static class AutoConfiguredRegistrarConfiguration implements InitializingBean {
-        @Override
-        public void afterPropertiesSet() throws Exception {
+    public static class AutoConfiguredRegistrarConfiguration {
 
-        }
     }
 
-    public static class AutoConfiguredRegistrar implements EnvironmentAware, BeanFactoryPostProcessor {
+    public static class AutoConfiguredRegistrar implements EnvironmentAware, BeanFactoryPostProcessor, ApplicationContextAware {
 
         private WeiXinMiniProgramProperties confProperties;
+        private ApplicationContext applicationContext;
 
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+            configurableListableBeanFactory.addBeanPostProcessor(new WeiXinMiniProgramBeanPostProcessor(confProperties, applicationContext));
             DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-            WeiXinCache weiXinCache = null;
-            Class<?> cache = confProperties.getCache();
-            if (Objects.nonNull(cache)) {
-                if (WeiXinCache.class.isAssignableFrom(cache)) {
-                    if (beanFactory.getBeanNamesForType(cache).length > 0) {
-                        weiXinCache = (WeiXinCache) beanFactory.getBean(cache);
-                    }
-                } else {
-                    throw new WeiXinException("cache class is not implements from  `com.moensun.weixin.commons.class`");
-                }
-            } else {
-                if (beanFactory.getBeanNamesForType(WeiXinCache.class).length != 0) {
-                    weiXinCache = beanFactory.getBean(WeiXinCache.class);
-                }
-            }
-
             WeiXinConfig weiXinConfig = new WeiXinConfig();
             weiXinConfig.setAppId(confProperties.getAppId());
             weiXinConfig.setSecret(confProperties.getSecret());
-            weiXinConfig.setWeiXinCache(weiXinCache);
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
             registerBean(beanFactory, argumentValues, WeiXinMiniProgram.class.getName());
@@ -85,6 +70,46 @@ public class WeiXinMiniProgramAutoConfiguration {
             beanDefinition.setConstructorArgumentValues(argumentValues);
             beanFactory.registerBeanDefinition(beanName, beanDefinition);
         }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.applicationContext = applicationContext;
+        }
+    }
+
+    public static class WeiXinMiniProgramBeanPostProcessor implements BeanPostProcessor {
+        private final WeiXinMiniProgramProperties confProperties;
+        private final ApplicationContext applicationContext;
+
+        public WeiXinMiniProgramBeanPostProcessor(WeiXinMiniProgramProperties confProperties, ApplicationContext applicationContext) {
+            this.confProperties = confProperties;
+            this.applicationContext = applicationContext;
+        }
+
+        @Override
+        public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+            if (bean instanceof WeiXinMiniProgram) {
+                WeiXinCache weiXinCache = null;
+                Class<?> cache = confProperties.getCache();
+                if (Objects.nonNull(cache)) {
+                    if (WeiXinCache.class.isAssignableFrom(cache)) {
+                        if (applicationContext.getBeanNamesForType(cache).length > 0) {
+                            weiXinCache = (WeiXinCache) applicationContext.getBean(cache);
+                        }
+                    } else {
+                        throw new WeiXinException("cache class is not implements from  `com.moensun.weixin.commons.class`");
+                    }
+                } else {
+                    if (applicationContext.getBeanNamesForType(WeiXinCache.class).length != 0) {
+                        weiXinCache = applicationContext.getBean(WeiXinCache.class);
+                    }
+                }
+                ((WeiXinMiniProgram) bean).setWeiXinCache(weiXinCache);
+            }
+            return bean;
+        }
+
+
     }
 
 }
