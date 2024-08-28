@@ -7,7 +7,6 @@ import com.trionesdev.weixin.base.ex.WeiXinException;
 import com.trionesdev.weixin.miniprogram.WeiXinMiniProgram;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -19,10 +18,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
@@ -33,13 +29,8 @@ import java.util.Objects;
 @Configuration(value = "com.moensun.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration")
 @ConditionalOnProperty(prefix = "triones.weixin.miniprogram", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(value = {WeiXinMiniProgramProperties.class})
+@Import(value = {WeiXinMiniProgramAutoConfiguration.AutoConfiguredRegistrar.class})
 public class WeiXinMiniProgramAutoConfiguration {
-
-    @Configuration
-    @Import(value = {AutoConfiguredRegistrar.class})
-    public static class AutoConfiguredRegistrarConfiguration {
-
-    }
 
     public static class AutoConfiguredRegistrar implements EnvironmentAware, BeanFactoryPostProcessor, ApplicationContextAware {
 
