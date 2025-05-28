@@ -1,4 +1,4 @@
-package com.trionesdev.weixin.miniprogram.annotation;
+package com.trionesdev.weixin.miniprogram.spring.boot.annotation;
 
 
 import com.trionesdev.weixin.base.WeiXinCache;

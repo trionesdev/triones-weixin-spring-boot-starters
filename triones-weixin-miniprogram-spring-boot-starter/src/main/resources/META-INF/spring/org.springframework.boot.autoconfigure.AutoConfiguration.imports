@@ -1,1 +1,1 @@
-com.trionesdev.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration
+com.trionesdev.weixin.miniprogram.spring.boot.autoconfigure.WeiXinMiniProgramAutoConfiguration

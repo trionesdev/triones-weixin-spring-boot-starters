@@ -1,4 +1,4 @@
-package com.trionesdev.weixin.offiaccount.autoconfigure;
+package com.trionesdev.weixin.offiaccount.spring.boot.autoconfigure;
 
 import com.trionesdev.weixin.base.WeiXinCache;
 import com.trionesdev.weixin.base.WeiXinConfig;

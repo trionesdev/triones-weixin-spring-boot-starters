@@ -1,8 +1,12 @@
-package com.trionesdev.weixin.miniprogram.annotation;
+package com.trionesdev.weixin.spring.boot.web.annotation;
 
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
-import org.springframework.beans.factory.config.*;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.BeanDefinitionHolder;
+import org.springframework.beans.factory.config.BeanExpressionContext;
+import org.springframework.beans.factory.config.BeanExpressionResolver;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
@@ -18,9 +22,13 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
-public class WeiXinMiniProgramClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+public class WeiXinWebClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
 
     private ResourceLoader resourceLoader;
 
@@ -43,12 +51,12 @@ public class WeiXinMiniProgramClientRegister implements ImportBeanDefinitionRegi
 
     private void registerAliYunOssClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
-        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableWeiXinMiniProgramClients.class.getName());
+        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableWeiXinWebClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
         if (channels == null || channels.length == 0) {
             ClassPathScanningCandidateComponentProvider scanner = getScanner();
             scanner.setResourceLoader(this.resourceLoader);
-            scanner.addIncludeFilter(new AnnotationTypeFilter(WeiXinMiniProgramClient.class));
+            scanner.addIncludeFilter(new AnnotationTypeFilter(WeiXinWebClient.class));
             Set<String> basePackages = getBasePackages(metadata);
             for (String basePackage : basePackages) {
                 candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
@@ -64,7 +72,7 @@ public class WeiXinMiniProgramClientRegister implements ImportBeanDefinitionRegi
                 AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                 AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
                 Map<String, Object> attributes = annotationMetadata
-                        .getAnnotationAttributes(WeiXinMiniProgramClient.class.getCanonicalName());
+                        .getAnnotationAttributes(WeiXinWebClient.class.getCanonicalName());
                 registerAliYunOssClient(registry, annotationMetadata, attributes);
             }
         }
@@ -76,7 +84,7 @@ public class WeiXinMiniProgramClientRegister implements ImportBeanDefinitionRegi
         ConfigurableBeanFactory beanFactory = registry instanceof ConfigurableBeanFactory
                 ? (ConfigurableBeanFactory) registry : null;
         Class clazz = ClassUtils.resolveClassName(className, null);
-        WeiXinMiniProgramClientFactoryBean factoryBean = new WeiXinMiniProgramClientFactoryBean();
+        WeiXinWebClientFactoryBean factoryBean = new WeiXinWebClientFactoryBean();
         factoryBean.setBeanFactory(beanFactory);
         factoryBean.setType(clazz);
         BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(clazz, () -> {
@@ -110,7 +118,7 @@ public class WeiXinMiniProgramClientRegister implements ImportBeanDefinitionRegi
 
     protected Set<String> getBasePackages(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> attributes = importingClassMetadata
-                .getAnnotationAttributes(EnableWeiXinMiniProgramClients.class.getCanonicalName());
+                .getAnnotationAttributes(EnableWeiXinWebClients.class.getCanonicalName());
 
         Set<String> basePackages = new HashSet<>();
         for (String pkg : (String[]) attributes.get("value")) {

@@ -1,4 +1,4 @@
-package com.trionesdev.weixin.offiaccount.annotation;
+package com.trionesdev.weixin.offiaccount.spring.boot.annotation;
 
 import com.trionesdev.weixin.base.WeiXinCache;
 import com.trionesdev.weixin.base.WeiXinConfig;

@@ -1,11 +1,11 @@
-package com.trionesdev.weixin.miniprogram.autoconfigure;
+package com.trionesdev.weixin.spring.boot.web.autoconfigure;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "triones.weixin.miniprogram")
-public class WeiXinMiniProgramProperties {
+@ConfigurationProperties(prefix = "triones.weixin.web")
+public class WeiXinWebProperties {
     private Boolean enabled;
     private String appId;
     private String secret;

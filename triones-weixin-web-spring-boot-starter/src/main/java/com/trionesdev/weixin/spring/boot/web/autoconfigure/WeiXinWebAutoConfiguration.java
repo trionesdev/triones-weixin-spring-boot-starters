@@ -1,11 +1,9 @@
-package com.trionesdev.weixin.miniprogram.autoconfigure;
-
+package com.trionesdev.weixin.spring.boot.web.autoconfigure;
 
 import com.trionesdev.weixin.base.WeiXinCache;
 import com.trionesdev.weixin.base.WeiXinConfig;
 import com.trionesdev.weixin.base.ex.WeiXinException;
-import com.trionesdev.weixin.miniprogram.WeiXinMiniProgram;
-import lombok.RequiredArgsConstructor;
+import com.trionesdev.weixin.web.WeiXinWeb;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -25,39 +23,37 @@ import org.springframework.core.env.Environment;
 
 import java.util.Objects;
 
-@RequiredArgsConstructor
-@Configuration(value = "com.moensun.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration")
-@ConditionalOnProperty(prefix = "triones.weixin.miniprogram", value = "enabled", havingValue = "true")
-@EnableConfigurationProperties(value = {WeiXinMiniProgramProperties.class})
-@Import(value = {WeiXinMiniProgramAutoConfiguration.AutoConfiguredRegistrar.class})
-public class WeiXinMiniProgramAutoConfiguration {
+@Configuration(value = "com.trionesdev.weixin.web.autoconfigure.WeiXinWebAutoConfiguration")
+@ConditionalOnProperty(prefix = "triones.weixin.web", value = "enabled", havingValue = "true")
+@EnableConfigurationProperties(value = {WeiXinWebProperties.class})
+@Import(value = {WeiXinWebAutoConfiguration.AutoConfiguredRegistrar.class})
+public class WeiXinWebAutoConfiguration {
 
     public static class AutoConfiguredRegistrar implements EnvironmentAware, BeanFactoryPostProcessor, ApplicationContextAware {
-
-        private WeiXinMiniProgramProperties confProperties;
+        private WeiXinWebProperties confProperties;
         private ApplicationContext applicationContext;
 
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-            configurableListableBeanFactory.addBeanPostProcessor(new WeiXinMiniProgramBeanPostProcessor(confProperties, applicationContext));
+            configurableListableBeanFactory.addBeanPostProcessor(new WeiXinWebBeanPostProcessor(confProperties, applicationContext));
             DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
             WeiXinConfig weiXinConfig = new WeiXinConfig();
             weiXinConfig.setAppId(confProperties.getAppId());
             weiXinConfig.setSecret(confProperties.getSecret());
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
-            registerBean(beanFactory, argumentValues, WeiXinMiniProgram.class.getName());
+            registerBean(beanFactory, argumentValues, WeiXinWeb.class.getName());
         }
 
         @Override
         public void setEnvironment(Environment environment) {
-            this.confProperties = Binder.get(environment).bind("triones.weixin.miniprogram", WeiXinMiniProgramProperties.class).get();
+            this.confProperties = Binder.get(environment).bind("triones.weixin.web", WeiXinWebProperties.class).get();
         }
 
         private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
             GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-            beanDefinition.setBeanClass(WeiXinMiniProgram.class);
-            beanDefinition.setBeanClassName(WeiXinMiniProgram.class.getName());
+            beanDefinition.setBeanClass(WeiXinWeb.class);
+            beanDefinition.setBeanClassName(WeiXinWeb.class.getName());
             beanDefinition.setConstructorArgumentValues(argumentValues);
             beanFactory.registerBeanDefinition(beanName, beanDefinition);
         }
@@ -68,18 +64,18 @@ public class WeiXinMiniProgramAutoConfiguration {
         }
     }
 
-    public static class WeiXinMiniProgramBeanPostProcessor implements BeanPostProcessor {
-        private final WeiXinMiniProgramProperties confProperties;
+    public static class WeiXinWebBeanPostProcessor implements BeanPostProcessor {
+        private final WeiXinWebProperties confProperties;
         private final ApplicationContext applicationContext;
 
-        public WeiXinMiniProgramBeanPostProcessor(WeiXinMiniProgramProperties confProperties, ApplicationContext applicationContext) {
+        public WeiXinWebBeanPostProcessor(WeiXinWebProperties confProperties, ApplicationContext applicationContext) {
             this.confProperties = confProperties;
             this.applicationContext = applicationContext;
         }
 
         @Override
         public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-            if (bean instanceof WeiXinMiniProgram) {
+            if (bean instanceof WeiXinWeb) {
                 WeiXinCache weiXinCache = null;
                 Class<?> cache = confProperties.getCache();
                 if (Objects.nonNull(cache)) {
@@ -95,12 +91,12 @@ public class WeiXinMiniProgramAutoConfiguration {
                         weiXinCache = applicationContext.getBean(WeiXinCache.class);
                     }
                 }
-                ((WeiXinMiniProgram) bean).setWeiXinCache(weiXinCache);
+                ((WeiXinWeb) bean).setWeiXinCache(weiXinCache);
             }
             return bean;
         }
 
-
     }
+
 
 }

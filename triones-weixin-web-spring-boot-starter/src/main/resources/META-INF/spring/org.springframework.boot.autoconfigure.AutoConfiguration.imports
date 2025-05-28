@@ -1,1 +1,1 @@
-com.trionesdev.weixin.web.autoconfigure.WeiXinWebAutoConfiguration
+com.trionesdev.weixin.spring.boot.web.autoconfigure.WeiXinWebAutoConfiguration
