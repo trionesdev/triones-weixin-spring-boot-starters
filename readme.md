@@ -1,7 +1,7 @@
 # 微信集成Spring Boot 自动装配
 > 对微信SDK进行Spring Boot 的自动装配 
 ---
-## 组件
+## 支持
 [微信公众号](triones-weixin-offiaccount-spring-boot-starter)
 
 [微信小程序](triones-weixin-miniprogram-spring-boot-starter)
