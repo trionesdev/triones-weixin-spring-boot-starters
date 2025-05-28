@@ -26,28 +26,10 @@
             </dependency>
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
-                <artifactId>triones-weixin</artifactId>
+                <artifactId>triones-weixin-dependencies</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.commons</groupId>
-                        <artifactId>commons-lang3</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.commons</groupId>
-                        <artifactId>commons-collections4</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.squareup.okhttp3</groupId>
-                        <artifactId>okhttp</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -79,6 +61,11 @@
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
                 <artifactId>triones-weixin-miniprogram-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.weixin</groupId>
+                <artifactId>triones-weixin-miniprogram-spring-boot-starter-rest</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
