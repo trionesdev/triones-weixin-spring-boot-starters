@@ -6,6 +6,7 @@ import com.trionesdev.weixin.base.WeiXinConfig;
 import com.trionesdev.weixin.base.ex.WeiXinException;
 import com.trionesdev.weixin.miniprogram.WeiXinMiniProgram;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -26,7 +27,7 @@ import org.springframework.core.env.Environment;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@Configuration(value = "com.moensun.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration")
+@Configuration(value = "com.trionesdev.weixin.miniprogram.autoconfigure.WeiXinMiniProgramAutoConfiguration")
 @ConditionalOnProperty(prefix = "triones.weixin.miniprogram", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(value = {WeiXinMiniProgramProperties.class})
 @Import(value = {WeiXinMiniProgramAutoConfiguration.AutoConfiguredRegistrar.class})
@@ -44,6 +45,7 @@ public class WeiXinMiniProgramAutoConfiguration {
             WeiXinConfig weiXinConfig = new WeiXinConfig();
             weiXinConfig.setAppId(confProperties.getAppId());
             weiXinConfig.setSecret(confProperties.getSecret());
+            weiXinConfig.setMulti(confProperties.getMulti());
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
             registerBean(beanFactory, argumentValues, WeiXinMiniProgram.class.getName());
@@ -78,7 +80,7 @@ public class WeiXinMiniProgramAutoConfiguration {
         }
 
         @Override
-        public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        public Object postProcessBeforeInitialization(@NotNull Object bean, @NotNull String beanName) {
             if (bean instanceof WeiXinMiniProgram) {
                 WeiXinCache weiXinCache = null;
                 Class<?> cache = confProperties.getCache();
@@ -88,7 +90,7 @@ public class WeiXinMiniProgramAutoConfiguration {
                             weiXinCache = (WeiXinCache) applicationContext.getBean(cache);
                         }
                     } else {
-                        throw new WeiXinException("cache class is not implements from  `com.moensun.weixin.commons.class`");
+                        throw new WeiXinException("cache class is not implements from  `com.trionesdev.weixin.base.WeiXinCache`");
                     }
                 } else {
                     if (applicationContext.getBeanNamesForType(WeiXinCache.class).length != 0) {
