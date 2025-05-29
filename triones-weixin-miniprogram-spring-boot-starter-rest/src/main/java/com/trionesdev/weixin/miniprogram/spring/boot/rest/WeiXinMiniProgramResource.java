@@ -26,8 +26,8 @@ public class WeiXinMiniProgramResource {
      * @return
      */
     @GetMapping(value = "code-to-session")
-    public Code2SessionResponse getCode2Session(@RequestParam(value = "code") String code) {
-        return weiXinMiniProgram.getIfAvailable().code2Session(code);
+    public Code2SessionResponse getCode2Session(@RequestParam(value = "code") String code,@RequestParam(value = "appId", required = false) String appId) {
+        return weiXinMiniProgram.getIfAvailable().code2Session(code, appId);
     }
 
     /**
@@ -36,9 +36,10 @@ public class WeiXinMiniProgramResource {
      * @return
      */
     @GetMapping(value = "user-phone-number")
-    public UserPhoneNumberResponse getUserPhoneNumber(@RequestParam(value = "code") String code) {
+    public UserPhoneNumberResponse getUserPhoneNumber(@RequestParam(value = "code") String code,@RequestParam(value = "appId", required = false) String appId) {
         var request = new GetUserPhoneNumberRequest();
         request.setCode(code);
+        request.setAppId(appId);
         return weiXinMiniProgram.getIfAvailable().getUserPhoneNumber(request);
     }
 }
