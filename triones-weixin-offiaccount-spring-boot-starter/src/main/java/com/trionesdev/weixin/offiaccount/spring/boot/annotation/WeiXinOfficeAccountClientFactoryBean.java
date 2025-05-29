@@ -78,7 +78,7 @@ public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>
         WeiXinConfig weiXinConfig = new WeiXinConfig();
         weiXinConfig.setAppId(appId);
         weiXinConfig.setSecret(secret);
-        weiXinConfig.setWeiXinCache(weiXinCache);
+        weiXinConfig.setCache(weiXinCache);
         WeiXinOfficeAccount officeAccount = new WeiXinOfficeAccount(weiXinConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override

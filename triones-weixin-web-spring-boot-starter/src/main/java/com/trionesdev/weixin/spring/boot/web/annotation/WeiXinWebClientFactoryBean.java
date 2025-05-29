@@ -78,7 +78,7 @@ public class WeiXinWebClientFactoryBean implements FactoryBean<Object>, Initiali
         WeiXinConfig weiXinConfig = new WeiXinConfig();
         weiXinConfig.setAppId(appId);
         weiXinConfig.setSecret(secret);
-        weiXinConfig.setWeiXinCache(weiXinCache);
+        weiXinConfig.setCache(weiXinCache);
         WeiXinWeb weiXinWeb = new WeiXinWeb(weiXinConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
