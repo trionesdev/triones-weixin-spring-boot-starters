@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.trionesdev.weixin.spring.boot.web.autoconfigure.WeiXinWebAutoConfiguration
+com.trionesdev.weixin.web.spring.boot.autoconfigure.WeiXinWebAutoConfiguration

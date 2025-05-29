@@ -1,4 +1,4 @@
-package com.trionesdev.weixin.spring.boot.web.annotation;
+package com.trionesdev.weixin.web.spring.boot.annotation;
 
 import org.springframework.context.annotation.Import;
 

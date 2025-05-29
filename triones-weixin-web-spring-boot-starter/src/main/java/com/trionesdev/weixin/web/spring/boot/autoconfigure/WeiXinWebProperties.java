@@ -1,4 +1,4 @@
-package com.trionesdev.weixin.spring.boot.web.autoconfigure;
+package com.trionesdev.weixin.web.spring.boot.autoconfigure;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
