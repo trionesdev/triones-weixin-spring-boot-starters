@@ -46,6 +46,7 @@ public class WeiXinMiniProgramAutoConfiguration {
             weiXinConfig.setAppId(confProperties.getAppId());
             weiXinConfig.setSecret(confProperties.getSecret());
             weiXinConfig.setMulti(confProperties.getMulti());
+            weiXinConfig.setCredentials(confProperties.getCredentials());
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
             registerBean(beanFactory, argumentValues, WeiXinMiniProgram.class.getName());

@@ -60,7 +60,7 @@ public class WeiXinMiniProgramClientFactoryBean implements FactoryBean<Object>, 
         this.applicationContext = applicationContext;
     }
 
-    protected <T> T getTarget() {
+    protected <T> T getTarget()   {
         DefaultListableBeanFactory listableBeanFactory = (DefaultListableBeanFactory) beanFactory;
         WeiXinCache weiXinCache = null;
         if (Objects.nonNull(cache)) {
@@ -79,7 +79,7 @@ public class WeiXinMiniProgramClientFactoryBean implements FactoryBean<Object>, 
         WeiXinConfig weiXinConfig = new WeiXinConfig();
         weiXinConfig.setAppId(appId);
         weiXinConfig.setSecret(secret);
-        weiXinConfig.setWeiXinCache(weiXinCache);
+        weiXinConfig.setCache(weiXinCache);
         WeiXinMiniProgram miniProgram = new WeiXinMiniProgram(weiXinConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
