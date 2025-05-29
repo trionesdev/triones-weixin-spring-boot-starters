@@ -53,7 +53,7 @@ public class WeiXinMiniProgramAutoConfiguration {
         }
 
         @Override
-        public void setEnvironment(Environment environment) {
+        public void setEnvironment(@NotNull Environment environment) {
             this.confProperties = Binder.get(environment).bind("triones.weixin.miniprogram", WeiXinMiniProgramProperties.class).get();
         }
 
@@ -66,7 +66,7 @@ public class WeiXinMiniProgramAutoConfiguration {
         }
 
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
             this.applicationContext = applicationContext;
         }
     }
