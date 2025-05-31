@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "weixin/miniprogram")
+@RequestMapping(value = "rest-api/weixin/miniprogram")
 public class WeiXinMiniProgramResource {
 
     private final ObjectProvider<WeiXinMiniProgram> weiXinMiniProgram;
