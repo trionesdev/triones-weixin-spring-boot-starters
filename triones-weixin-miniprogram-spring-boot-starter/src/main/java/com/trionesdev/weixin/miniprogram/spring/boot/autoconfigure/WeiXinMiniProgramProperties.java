@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.List;
+import java.util.Map;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -14,5 +14,5 @@ public class WeiXinMiniProgramProperties extends WeiXinCredentials {
     private Boolean enabled;
     private Class<?> cache;
     private Boolean multi;
-    private List<WeiXinCredentials> credentials;
+    private Map<String,WeiXinCredentials> credentials;
 }

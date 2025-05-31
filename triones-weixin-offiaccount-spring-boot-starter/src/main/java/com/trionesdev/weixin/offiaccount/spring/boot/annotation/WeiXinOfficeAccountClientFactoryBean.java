@@ -2,6 +2,7 @@ package com.trionesdev.weixin.offiaccount.spring.boot.annotation;
 
 import com.trionesdev.weixin.base.WeiXinCache;
 import com.trionesdev.weixin.base.WeiXinConfig;
+import com.trionesdev.weixin.base.WeiXinCredentials;
 import com.trionesdev.weixin.base.ex.WeiXinException;
 import com.trionesdev.weixin.offiaccount.WeiXinOfficeAccount;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import org.springframework.context.ApplicationContextAware;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Map;
 import java.util.Objects;
 
 public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>, InitializingBean,
@@ -27,6 +29,10 @@ public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>
     private String secret;
     @Setter
     private Class<?> cache;
+    @Setter
+    private Boolean multi;
+    @Setter
+    private Map<String, WeiXinCredentials> credentials;
 
     @Setter
     private Class<?> type;
@@ -68,7 +74,7 @@ public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>
                     weiXinCache = (WeiXinCache) beanFactory.getBean(cache);
                 }
             } else {
-                throw new WeiXinException("cache class is not implements from  `com.moensun.weixin.commons.class`");
+                throw new WeiXinException("cache class is not implements from  `com.trionesdev.weixin.commons.class`");
             }
         } else {
             if (listableBeanFactory.getBeanNamesForType(WeiXinCache.class).length > 0) {
@@ -79,6 +85,7 @@ public class WeiXinOfficeAccountClientFactoryBean implements FactoryBean<Object>
         weiXinConfig.setAppId(appId);
         weiXinConfig.setSecret(secret);
         weiXinConfig.setCache(weiXinCache);
+        weiXinConfig.setMulti(multi);
         WeiXinOfficeAccount officeAccount = new WeiXinOfficeAccount(weiXinConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override

@@ -170,4 +170,5 @@ public class WeiXinOfficeAccountClientRegister implements ImportBeanDefinitionRe
         return cacheClass instanceof Class ? (Class<?>) cacheClass : ClassUtils.resolveClassName(cacheClass.toString(), null);
     }
 
+
 }

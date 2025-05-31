@@ -4,6 +4,7 @@ import com.trionesdev.weixin.base.WeiXinCache;
 import com.trionesdev.weixin.base.WeiXinConfig;
 import com.trionesdev.weixin.base.ex.WeiXinException;
 import com.trionesdev.weixin.web.WeiXinWeb;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -40,13 +41,15 @@ public class WeiXinWebAutoConfiguration {
             WeiXinConfig weiXinConfig = new WeiXinConfig();
             weiXinConfig.setAppId(confProperties.getAppId());
             weiXinConfig.setSecret(confProperties.getSecret());
+            weiXinConfig.setMulti(confProperties.getMulti());
+            weiXinConfig.setCredentials(confProperties.getCredentials());
             ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
             argumentValues.addIndexedArgumentValue(0, weiXinConfig);
             registerBean(beanFactory, argumentValues, WeiXinWeb.class.getName());
         }
 
         @Override
-        public void setEnvironment(Environment environment) {
+        public void setEnvironment(@NotNull Environment environment) {
             this.confProperties = Binder.get(environment).bind("triones.weixin.web", WeiXinWebProperties.class).get();
         }
 
@@ -59,7 +62,7 @@ public class WeiXinWebAutoConfiguration {
         }
 
         @Override
-        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
             this.applicationContext = applicationContext;
         }
     }

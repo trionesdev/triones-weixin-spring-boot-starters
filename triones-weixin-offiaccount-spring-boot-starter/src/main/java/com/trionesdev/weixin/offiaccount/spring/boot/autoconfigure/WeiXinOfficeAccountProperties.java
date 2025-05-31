@@ -1,13 +1,18 @@
 package com.trionesdev.weixin.offiaccount.spring.boot.autoconfigure;
 
+import com.trionesdev.weixin.base.WeiXinCredentials;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Map;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ConfigurationProperties(prefix = "triones.weixin.offiaccount")
-public class WeiXinOfficeAccountProperties {
+public class WeiXinOfficeAccountProperties extends WeiXinCredentials {
     private Boolean enabled;
-    private String appId;
-    private String secret;
     private Class<?> cache;
+    private Boolean multi;
+    private Map<String,WeiXinCredentials> credentials;
 }
