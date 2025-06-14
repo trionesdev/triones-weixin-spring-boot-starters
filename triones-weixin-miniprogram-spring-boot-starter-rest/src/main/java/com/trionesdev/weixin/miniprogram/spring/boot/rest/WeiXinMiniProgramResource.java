@@ -1,6 +1,7 @@
 package com.trionesdev.weixin.miniprogram.spring.boot.rest;
 
 import com.trionesdev.weixin.miniprogram.WeiXinMiniProgram;
+import com.trionesdev.weixin.miniprogram.model.Code2SessionRequest;
 import com.trionesdev.weixin.miniprogram.model.Code2SessionResponse;
 import com.trionesdev.weixin.miniprogram.model.GetUserPhoneNumberRequest;
 import com.trionesdev.weixin.miniprogram.model.UserPhoneNumberResponse;
@@ -27,7 +28,7 @@ public class WeiXinMiniProgramResource {
      */
     @GetMapping(value = "code-to-session")
     public Code2SessionResponse getCode2Session(@RequestParam(value = "code") String code,@RequestParam(value = "appId", required = false) String appId) {
-        return weiXinMiniProgram.getIfAvailable().code2Session(code, appId);
+        return weiXinMiniProgram.getIfAvailable().code2Session(Code2SessionRequest.builder().code(code).appId(appId).build());
     }
 
     /**
