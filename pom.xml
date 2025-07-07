@@ -14,7 +14,6 @@
         <module>triones-weixin-miniprogram-spring-boot-starter</module>
         <module>triones-weixin-web-spring-boot-starter</module>
         <module>triones-weixin-spring-boot-dependencies</module>
-        <module>triones-weixin-miniprogram-spring-boot-starter-rest</module>
     </modules>
 
     <properties>
