@@ -65,11 +65,6 @@
             </dependency>
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
-                <artifactId>triones-weixin-miniprogram-spring-boot-starter-rest</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.trionesdev.weixin</groupId>
                 <artifactId>triones-weixin-web-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
