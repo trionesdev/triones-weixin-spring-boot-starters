@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.trionesdev.weixin</groupId>
-    <artifactId>triones-weixin-spring-boot-dependencies</artifactId>
+    <artifactId>weixin-spring-boot-dependencies</artifactId>
     <version>3.0.0-SNAPSHOT</version>
     <name>Triones:WeiXin:Dependencies</name>
 
@@ -26,8 +26,8 @@
             </dependency>
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
-                <artifactId>triones-weixin-dependencies</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <artifactId>weixin-dependencies</artifactId>
+                <version>0.0.2-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -55,17 +55,17 @@
 
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
-                <artifactId>triones-weixin-offiaccount-spring-boot-starter</artifactId>
+                <artifactId>weixin-offiaccount-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
-                <artifactId>triones-weixin-miniprogram-spring-boot-starter</artifactId>
+                <artifactId>weixin-miniprogram-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
-                <artifactId>triones-weixin-web-spring-boot-starter</artifactId>
+                <artifactId>weixin-web-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

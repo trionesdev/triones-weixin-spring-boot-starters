@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>triones-weixin-spring-boot-starters</artifactId>
         <groupId>com.trionesdev.weixin</groupId>
+        <artifactId>weixin-spring-boot-starters</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>Triones:WeiXin:OfficeAccount:SpringBootStarter</name>
-    <artifactId>triones-weixin-offiaccount-spring-boot-starter</artifactId>
+    <name>Triones:WeiXin:MiniProgram:SpringBootStarter</name>
+    <artifactId>weixin-miniprogram-spring-boot-starter</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.weixin</groupId>
-            <artifactId>triones-weixin-offiaccount</artifactId>
+            <artifactId>weixin-miniprogram</artifactId>
         </dependency>
     </dependencies>
 
