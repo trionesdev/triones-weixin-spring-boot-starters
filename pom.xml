@@ -10,10 +10,8 @@
     <version>3.0.0-SNAPSHOT</version>
     <name>Triones:WeiXin:Starters</name>
     <modules>
-        <module>weixin-offiaccount-spring-boot-starter</module>
-        <module>weixin-miniprogram-spring-boot-starter</module>
-        <module>weixin-web-spring-boot-starter</module>
         <module>weixin-spring-boot-dependencies</module>
+        <module>spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -21,19 +19,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.trionesdev.weixin</groupId>
-                <artifactId>weixin-spring-boot-dependencies</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <optional>true</optional>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
