@@ -11,14 +11,15 @@
 ## 使用
 添加依赖
 ```xml
-<dependencyManagement>
+    <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>com.trionesdev.weixin</groupId>
-            <artifactId>triones-weixin-spring-boot-dependencies</artifactId>
-            <version>版本号</version>
+            <artifactId>weixin-spring-boot-dependencies</artifactId>
+            <version>${project.version}</version>
             <type>pom</type>
             <scope>import</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </dependencyManagement>
