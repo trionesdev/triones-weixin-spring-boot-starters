@@ -21,14 +21,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.3.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
                 <groupId>com.trionesdev.weixin</groupId>
                 <artifactId>weixin-dependencies</artifactId>
                 <version>0.0.2-SNAPSHOT</version>
