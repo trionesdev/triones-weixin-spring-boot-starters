@@ -2,19 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.trionesdev.weixin</groupId>
-        <artifactId>spring-boot-starter</artifactId>
+        <artifactId>weixin-spring-boot-starters</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <name>Triones:WeiXin:OfficeAccount:SpringBootStarter</name>
-    <artifactId>weixin-offiaccount-spring-boot-starter</artifactId>
+
+    <name>Triones:WeiXin:WebStarter</name>
+    <artifactId>weixin-web-spring-boot-starter</artifactId>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -46,7 +47,16 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.weixin</groupId>
-            <artifactId>weixin-offiaccount</artifactId>
+            <artifactId>weixin-web</artifactId>
+        </dependency>
+        <!-- weixin-base is runtime-scoped transitively; starters compile against its API -->
+        <dependency>
+            <groupId>com.trionesdev.weixin</groupId>
+            <artifactId>weixin-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
         </dependency>
     </dependencies>
 
